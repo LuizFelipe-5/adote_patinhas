@@ -7,17 +7,17 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:144858580413:android:5d3af0c249d4fd2c65bed4",
+        "mobilesdk_app_id": "1:144858580413:android:ce1351bb6f11527d65bed4",
         "android_client_info": {
-          "package_name": "br.com.montuani.adote_patinhas"
+          "package_name": "br.com.montuani.adote.patinhas"
         }
       },
       "oauth_client": [
         {
-          "client_id": "144858580413-oi0igr941dsrhhd1706f4ign6r46902j.apps.googleusercontent.com",
+          "client_id": "144858580413-nagd61ge4muj9ohr52dprgok8r79e7pp.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "br.com.montuani.adote_patinhas",
+            "package_name": "br.com.montuani.adote.patinhas",
             "certificate_hash": "30bd4a7fb373d6f8a4889e296f2650b4c4de20e1"
           }
         },
@@ -37,6 +37,13 @@
             {
               "client_id": "144858580413-kvkvac11ej3ccmu7397oevhamq1kdk89.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "144858580413-fjbvh2tlhrr9reqa53a2ecbc72q8um7l.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "br.com.montuani.adote-patinhas"
+              }
             }
           ]
         }
