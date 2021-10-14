@@ -1,6 +1,6 @@
 import 'package:adote_patinhas/app/core/failure.dart';
 import 'package:adote_patinhas/app/core/usecase.dart';
-import 'package:adote_patinhas/app/modules/login/repositories/login_repository.dart';
+import 'package:adote_patinhas/app/modules/login/domain/repositories/login_repository.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
