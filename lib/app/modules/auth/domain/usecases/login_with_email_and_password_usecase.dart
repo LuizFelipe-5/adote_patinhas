@@ -1,7 +1,7 @@
 import 'package:adote_patinhas/app/core/failure.dart';
 import 'package:adote_patinhas/app/core/usecase.dart';
 import 'package:adote_patinhas/app/modules/auth/domain/failures/email_is_empty_failure.dart';
-import 'package:adote_patinhas/app/modules/auth/domain/failures/password_is_empty_falilure.dart';
+import 'package:adote_patinhas/app/modules/auth/domain/failures/password_is_empty_failure.dart';
 import 'package:adote_patinhas/app/modules/auth/domain/repositories/login_repository.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -20,10 +20,10 @@ class LoginWithEmailAndPasswordUsecaseImpl
   Future<Either<Failure, UserCredential>> login(
       CredentialsParams params) async {
     if (params.email.isEmpty) {
-      throw EmailIsEmptyFailure('Email is Empty');
+      return Left(EmailIsEmptyFailure(message: 'Email is Empty'));
     }
     if (params.password.isEmpty) {
-      throw PasswordIsEmptyFailure('Password is empty');
+      return Left(PasswordIsEmptyFailure(message: 'Password is empty'));
     }
     return await repository.login(params);
   }
