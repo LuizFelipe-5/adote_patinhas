@@ -13,9 +13,9 @@ class LoginRepositoryMock extends Mock implements LoginRepository {}
 class UserCredentialMock extends Mock implements UserCredential {}
 
 void main() {
-  late final LoginRepositoryMock repository;
-  late final LoginWithEmailAndPasswordUsecase usecase;
-  late final UserCredential userCredential;
+  late LoginRepositoryMock repository;
+  late LoginWithEmailAndPasswordUsecase usecase;
+  late UserCredential userCredential;
 
   setUp(() {
     repository = LoginRepositoryMock();
@@ -44,6 +44,9 @@ void main() {
   });
 
   test('Deveria dar erro quando a senha for vazio', () async {
+    when(() => repository.login(
+            email: any(named: 'email'), password: any(named: 'password')))
+        .thenAnswer((_) async => Left(PasswordIsEmptyFailure()));
     final result = await usecase.login(email: 'luiz@luiz.com', password: '');
 
     expect(result, isA<Left>());
