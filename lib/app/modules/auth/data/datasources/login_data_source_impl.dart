@@ -16,12 +16,12 @@ class LoginDataSourceImpl implements LoginDataSource {
 
   @override
   Future<Either<Failure, UserCredential>> login(
-      CredentialsParams params) async {
+      {required String email, required String password}) async {
     try {
       UserCredential userCredential =
           await firebaseAuth.signInWithEmailAndPassword(
-        email: params.email,
-        password: params.password,
+        email: email,
+        password: password,
       );
       return Right(userCredential);
     } on FirebaseAuthException catch (e) {

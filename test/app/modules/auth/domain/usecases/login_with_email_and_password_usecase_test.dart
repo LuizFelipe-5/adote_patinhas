@@ -5,40 +5,46 @@ import 'package:adote_patinhas/app/modules/auth/domain/usecases/login_with_email
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 
 class LoginRepositoryMock extends Mock implements LoginRepository {}
 
+class UserCredentialMock extends Mock implements UserCredential {}
+
 void main() {
-  final repository = LoginRepositoryMock();
-  final usecase = LoginWithEmailAndPasswordUsecaseImpl(repository: repository);
+  late final LoginRepositoryMock repository;
+  late final LoginWithEmailAndPasswordUsecase usecase;
+  late final UserCredential userCredential;
 
-  UserCredential userCredential;
-
-  test('Deveria efetuar login', () async {
-    when(() =>
-            repository.login(CredentialsParams(email: 'any', password: 'any')))
-        .thenAnswer((_) async => Right(UserCredential));
-
-    final result = await usecase
-        .login(CredentialsParams(email: 'luiz@luiz.com', password: '123'));
-
-    expect(result, isA<UserCredential>());
-    // expect(result.fold((l) => null, (r) => null), matcher)
+  setUp(() {
+    repository = LoginRepositoryMock();
+    usecase = LoginWithEmailAndPasswordUsecaseImpl(repository: repository);
+    userCredential = UserCredentialMock();
+    when(() => repository.login(
+            email: any(named: 'email'), password: any(named: 'password')))
+        .thenAnswer((_) async => Right(userCredential));
   });
 
-  test('Deveria dar erro quando o email for vazio', () async {
-    final result = await usecase
-        .login(CredentialsParams(email: 'luiz@luiz.com', password: '123'));
+  test('Deveria retornar um obj do tipo Right', () async {
+    final result = await usecase.login(email: 'any', password: 'any');
 
-    expect(result, isA<UserCredential>());
+    expect(result, isA<Right>());
+    // expect(result.fold((l) => null, (r) => null), matcher);
   });
+
+  // test('Deveria dar erro quando o email for vazio', () async {
+  //   final result = await usecase.login(email: 'luiz@luiz.com', password: '123');
+
+  //   expect(result, isA<UserCredential>());
+  // });
 
   test('Deveria dar erro quando a senha for vazio', () async {
-    final result = usecase
-        .login(CredentialsParams(email: 'luiz@luiz.com', password: '123'));
+    when(() => repository.login(
+            email: any(named: 'email'), password: any(named: 'password')))
+        .thenAnswer((_) async => Left(PasswordIsEmptyFailure()));
 
-    expect(() async => await Right(result),
-        throwsA(isA<PasswordIsEmptyFailure>()));
+    final result = await usecase.login(email: 'luiz@luiz.com', password: '');
+
+    expect(result, isA<Left>());
   });
 }

@@ -11,7 +11,8 @@ class LoginRepositoryImpl implements LoginRepository {
   LoginRepositoryImpl(this.dataSource);
 
   @override
-  Future<Either<Failure, UserCredential>> login(CredentialsParams params) {
-    return dataSource.login(params);
+  Future<Either<Failure, UserCredential>> login(
+      {required String email, required String password}) {
+    return dataSource.login(email: email, password: password);
   }
 }

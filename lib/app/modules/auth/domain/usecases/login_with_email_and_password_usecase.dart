@@ -7,7 +7,8 @@ import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 abstract class LoginWithEmailAndPasswordUsecase implements UseCase {
-  Future<Either<Failure, UserCredential>> login(CredentialsParams params);
+  Future<Either<Failure, UserCredential>> login(
+      {required String email, required String password});
 }
 
 class LoginWithEmailAndPasswordUsecaseImpl
@@ -18,20 +19,13 @@ class LoginWithEmailAndPasswordUsecaseImpl
 
   @override
   Future<Either<Failure, UserCredential>> login(
-      CredentialsParams params) async {
-    if (params.email.isEmpty) {
-      return Left(EmailIsEmptyFailure(message: 'Email is Empty'));
+      {required String email, required String password}) async {
+    if (email.isEmpty) {
+      return Left(EmailIsEmptyFailure());
     }
-    if (params.password.isEmpty) {
-      return Left(PasswordIsEmptyFailure(message: 'Password is empty'));
+    if (password.isEmpty) {
+      return Left(PasswordIsEmptyFailure());
     }
-    return await repository.login(params);
+    return await repository.login(email: email, password: password);
   }
-}
-
-class CredentialsParams {
-  final String email;
-  final String password;
-
-  CredentialsParams({required this.email, required this.password});
 }
