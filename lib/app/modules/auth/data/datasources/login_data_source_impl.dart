@@ -5,8 +5,6 @@ import 'package:adote_patinhas/app/modules/auth/domain/datasources/login_data_so
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-import 'package:adote_patinhas/app/modules/auth/domain/usecases/login_with_email_and_password_usecase.dart';
-
 class LoginDataSourceImpl implements LoginDataSource {
   FirebaseAuth firebaseAuth;
 
@@ -24,9 +22,9 @@ class LoginDataSourceImpl implements LoginDataSource {
         password: password,
       );
       return Right(userCredential);
-    } on FirebaseAuthException catch (e) {
-      return Left(FirebaseAuthFailureHandler.resolve(e));
-    } catch (e) {
+    } on FirebaseAuthException catch (exception) {
+      return Left(FirebaseAuthFailureHandler.resolve(exception));
+    } catch (exception) {
       return Left(UnknownFailure());
     }
   }

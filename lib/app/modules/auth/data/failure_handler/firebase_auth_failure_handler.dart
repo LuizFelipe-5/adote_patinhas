@@ -8,14 +8,14 @@ import 'package:adote_patinhas/app/modules/auth/domain/failures/wrong_password_f
 import 'package:firebase_auth/firebase_auth.dart';
 
 class FirebaseAuthFailureHandler {
-  static Failure resolve(FirebaseAuthException e) {
-    if (e.code == 'user-not-found') {
+  static Failure resolve(FirebaseAuthException exception) {
+    if (exception.code == 'user-not-found') {
       return UserNotFoundFailure(messsage: 'User not found');
-    } else if (e.code == 'invalid-email') {
+    } else if (exception.code == 'invalid-email') {
       return InvalidEmailFailure(message: 'Invlalid email');
-    } else if (e.code == 'user-disabled') {
+    } else if (exception.code == 'user-disabled') {
       return UserDisabledFailure(message: 'User disabled');
-    } else if (e.code == 'wrong-password') {
+    } else if (exception.code == 'wrong-password') {
       return WrongPasswordFailure(message: 'Wrong password');
     }
 
