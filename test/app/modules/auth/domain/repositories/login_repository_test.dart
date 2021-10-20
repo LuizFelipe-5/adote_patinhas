@@ -7,8 +7,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
-import '../usecases/login_with_email_and_password_usecase_test.dart';
-
 class LoginDataSourceMock extends Mock implements LoginDataSource {}
 
 class UserCredentialMock extends Mock implements UserCredential {}
@@ -28,7 +26,7 @@ void main() {
   });
 
   test('Should return an object of type Right', () async {
-    final result = await dataSource.login(email: 'any', password: 'any');
+    final result = await repository.login(email: 'any', password: 'any');
 
     expect(result, isA<Right>());
   });
@@ -37,7 +35,7 @@ void main() {
     when(() => dataSource.login(
             email: any(named: 'email'), password: any(named: 'password')))
         .thenAnswer((_) async => Left(UnknownFailure()));
-    final result = await dataSource.login(email: 'any', password: 'any');
+    final result = await repository.login(email: 'any', password: 'any');
     expect(result, isA<Left>());
   });
 }

@@ -30,13 +30,20 @@ void main() {
     expect(result, isA<Right>());
   });
 
+  test('Should return an object of type UserCredential', () async {
+    final result = await usecase.register(email: 'email', password: 'password');
+
+    expect(result.fold(id, id), isA<UserCredential>());
+  });
+
   test('Should give an error when email is empty', () async {
     when(() => repository.register(email: 'email', password: 'password'))
         .thenAnswer((_) async => Left(EmailIsEmptyFailure()));
 
     final result = await usecase.register(email: '', password: '23');
 
-    expect(result, isA<Left>());
+    expect(result.fold((failure) => failure, (userData) => userData),
+        isA<EmailIsEmptyFailure>());
   });
 
   test('Should give an error when password is empty', () async {
@@ -45,6 +52,7 @@ void main() {
 
     final result = await usecase.register(email: 'email', password: '');
 
-    expect(result, isA<Left>());
+    expect(result.fold((failure) => failure, (userData) => userData),
+        isA<PasswordIsEmptyFailure>());
   });
 }
