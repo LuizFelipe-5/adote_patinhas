@@ -19,9 +19,9 @@ class RegisterDataSourceImpl implements RegisterDataSource {
       UserCredential userCredential = await firebaseAuth
           .createUserWithEmailAndPassword(email: email, password: password);
       return Right(userCredential);
-    } on FirebaseAuthException catch (e) {
-      return Left(FirebaseAuthFailureHandler.resolve(e));
-    } catch (e) {
+    } on FirebaseAuthException catch (exception) {
+      return Left(FirebaseAuthFailureHandler.resolve(exception));
+    } catch (exception) {
       return Left(UnknownFailure());
     }
   }
