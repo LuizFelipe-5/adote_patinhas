@@ -11,23 +11,22 @@ import 'package:adote_patinhas/app/modules/auth/domain/failures/wrong_password_f
 import 'package:firebase_auth/firebase_auth.dart';
 
 class FirebaseAuthFailureHandler {
-  static Failure resolve(FirebaseAuthException e) {
-    if (e.code == 'user-not-found') {
-      return UserNotFoundFailure(messsage: 'User not found');
-    } else if (e.code == 'invalid-email') {
-      return InvalidEmailFailure(message: 'Invalid email');
-    } else if (e.code == 'user-disabled') {
-      return UserDisabledFailure(message: 'User disabled');
-    } else if (e.code == 'wrong-password') {
-      return WrongPasswordFailure(message: 'Wrong password');
-    } else if (e.code == 'email-already-in-use') {
+  static Failure resolve(FirebaseAuthException exception) {
+    if (exception.code == 'user-not-found') {
+      return UserNotFoundFailure();
+    } else if (exception.code == 'invalid-email') {
+      return InvalidEmailFailure();
+    } else if (exception.code == 'user-disabled') {
+      return UserDisabledFailure();
+    } else if (exception.code == 'wrong-password') {
+      return WrongPasswordFailure();
+    } else if (exception.code == 'email-already-in-use') {
       return EmailAlreadyInUseFailure();
-    } else if (e.code == 'operation-not-allowed') {
+    } else if (exception.code == 'operation-not-allowed') {
       return OperationNotAllowedFailure();
-    } else if (e.code == 'weak-password') {
+    } else if (exception.code == 'weak-password') {
       return WeakPasswordFailure();
     }
-
     return UnknownFailure();
   }
 }

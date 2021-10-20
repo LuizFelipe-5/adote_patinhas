@@ -26,29 +26,36 @@ void main() {
         .thenAnswer((_) async => Right(userCredential));
   });
 
-  test('Deveria retornar um obj do tipo Right', () async {
+  test('Should return an object of type Right', () async {
     final result = await usecase.login(email: 'any', password: 'any');
 
     expect(result, isA<Right>());
-    // expect(result.fold((l) => null, (r) => null), matcher);
   });
 
-  test('Deveria dar erro quando o email for vazio', () async {
+  test('Should return an object of type UserCredential', () async {
+    final result = await usecase.login(email: 'email', password: 'password');
+
+    expect(result.fold(id, id), isA<UserCredential>());
+  });
+
+  test('Should give an error when email is empty', () async {
     when(() => repository.login(
             email: any(named: 'email'), password: any(named: 'password')))
         .thenAnswer((_) async => Left(EmailIsEmptyFailure()));
 
     final result = await usecase.login(email: '', password: '123');
 
-    expect(result, isA<Left>());
+    expect(result.fold((failure) => failure, (userData) => userData),
+        isA<EmailIsEmptyFailure>());
   });
 
-  test('Deveria dar erro quando a senha for vazio', () async {
+  test('Should give an error when password is empty', () async {
     when(() => repository.login(
             email: any(named: 'email'), password: any(named: 'password')))
         .thenAnswer((_) async => Left(PasswordIsEmptyFailure()));
     final result = await usecase.login(email: 'luiz@luiz.com', password: '');
 
-    expect(result, isA<Left>());
+    expect(result.fold((failure) => failure, (userData) => userData),
+        isA<PasswordIsEmptyFailure>());
   });
 }
