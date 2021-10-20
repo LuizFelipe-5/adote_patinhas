@@ -30,4 +30,15 @@ void main() {
 
     expect(result, isA<Right>());
   });
+
+  test('Should return an object of type Left', () async {
+    when(() => firebaseAuth.createUserWithEmailAndPassword(
+        email: any(named: 'email'),
+        password: any(named: 'password'))).thenThrow(Exception());
+
+    final result =
+        await dataSource.register(email: 'email', password: 'password');
+
+    expect(result, isA<Left>());
+  });
 }
