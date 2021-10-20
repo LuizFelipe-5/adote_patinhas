@@ -45,7 +45,8 @@ void main() {
 
     final result = await usecase.login(email: '', password: '123');
 
-    expect(result, isA<Left>());
+    expect(result.fold((failure) => failure, (userData) => userData),
+        isA<EmailIsEmptyFailure>());
   });
 
   test('Should give an error when password is empty', () async {
@@ -54,6 +55,7 @@ void main() {
         .thenAnswer((_) async => Left(PasswordIsEmptyFailure()));
     final result = await usecase.login(email: 'luiz@luiz.com', password: '');
 
-    expect(result, isA<Left>());
+    expect(result.fold((failure) => failure, (userData) => userData),
+        isA<PasswordIsEmptyFailure>());
   });
 }

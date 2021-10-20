@@ -27,13 +27,13 @@ void main() {
         .thenAnswer((_) async => Right(userCredential));
   });
 
-  test('Deveria retornar um obj do tipo Right', () async {
+  test('Should return an object of type Right', () async {
     final result = await dataSource.login(email: 'any', password: 'any');
 
     expect(result, isA<Right>());
   });
 
-  test('Deveria retornar um obj do tipo Left', () async {
+  test('Should return an object of type Left', () async {
     when(() => dataSource.login(
             email: any(named: 'email'), password: any(named: 'password')))
         .thenAnswer((_) async => Left(UnknownFailure()));
