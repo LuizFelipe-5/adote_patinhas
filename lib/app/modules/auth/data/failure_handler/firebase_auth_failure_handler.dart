@@ -1,7 +1,6 @@
 import 'package:adote_patinhas/app/commons/failures/unknown_failure.dart';
 import 'package:adote_patinhas/app/core/failure.dart';
 import 'package:adote_patinhas/app/modules/auth/domain/failures/email_already_in_use_failure.dart';
-import 'package:adote_patinhas/app/modules/auth/domain/failures/email_is_empty_failure.dart';
 import 'package:adote_patinhas/app/modules/auth/domain/failures/invalid_email_failure.dart';
 import 'package:adote_patinhas/app/modules/auth/domain/failures/operation_not_allowed_failure.dart';
 import 'package:adote_patinhas/app/modules/auth/domain/failures/user_disabled_failure.dart';
