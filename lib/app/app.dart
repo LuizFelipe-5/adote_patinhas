@@ -1,3 +1,4 @@
+import 'package:adote_patinhas/app/modules/profile/presentation/pages/firebase_test_page.dart';
 import 'package:flutter/material.dart';
 
 class MyApp extends StatelessWidget {
@@ -11,6 +12,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
           visualDensity: VisualDensity.adaptivePlatformDensity),
       onGenerateRoute: (settings) {},
+      home: FirebaseTest(),
     );
   }
 }
